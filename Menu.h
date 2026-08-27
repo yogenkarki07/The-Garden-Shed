@@ -19,7 +19,8 @@ class Menu {
         const std::string& description,
         double price,
         bool available);
-
+    bool deleteItem (int itemId);
+    void displayMenu() const;
 };
 
 
