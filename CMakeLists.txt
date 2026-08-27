@@ -9,4 +9,6 @@ add_executable(The_Garden_Shed main.cpp
         MenuItem.cpp
         MenuItem.h
         CSVmanager.cpp
-        CSVmanager.h)
+        CSVmanager.h
+        Restaurant.cpp
+        Restaurant.h)
