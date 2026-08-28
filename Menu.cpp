@@ -26,6 +26,11 @@ MenuItem* Menu::findItem(int id) {
     return nullptr;
 }
 
+//clear function
+void Menu::clear() {
+    return items.clear();
+}
+
 //addItem function
 void Menu::addItem(const MenuItem& item) {
     items.push_back(item);

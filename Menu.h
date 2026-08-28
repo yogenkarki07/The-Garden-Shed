@@ -12,6 +12,7 @@ class Menu {
     const MenuItem* findItem(int itemId) const;   //pointer cannot be modified  - const
     MenuItem* findItem(int itemId);               // pointer can be modified - edit menu
 
+    void clear();
     void addItem (const MenuItem& item);
     bool editItem (int itemId,
         const std::string& name,

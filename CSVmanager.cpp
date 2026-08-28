@@ -2,7 +2,7 @@
 #include <iostream>
 #include <sstream>
 #include <fstream>
-
+#include <iomanip>
 
 namespace {
     // escapeCSV function to convert normal C++ string into a CSV-safe string
@@ -50,7 +50,7 @@ namespace {
 }
 
 // private files path functions
-std::string CSVmanager::MenuFile() const{
+std::string CSVmanager::menuFile() const{
      return dataDirectory + "/menu.csv";
 }
 
@@ -82,10 +82,10 @@ bool CSVmanager::loadMenu(Menu& menu) const {
         std::cout << "Could not open file \n";
         return false;
     }
-
     menu.clear();
     std::string line;
     std::getline(in, line);
+
     while (std::getline(in, line)) {
         if (line.empty()) continue;
         auto f = parseCSVLine(line);
