@@ -1,0 +1,6 @@
+table_number,capacity,status,reservation_name,reservation_datetime
+1,2,Available,,
+2,4,Available,,
+3,4,Available,,
+4,6,Available,,
+5,2,Available,,

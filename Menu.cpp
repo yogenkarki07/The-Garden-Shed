@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include <algorithm>
+#include <iomanip>
 
 //getter
 const std::vector<MenuItem>& Menu::getItems() const { return items; }
@@ -38,18 +39,13 @@ void Menu::addItem(const MenuItem& item) {
 }
 
 //editItem Function
-bool Menu::editItem(int id, const std::string& name, const std::string& category,
-    const std::string& description, double price, bool available) {
+bool Menu::editItem(int id, const MenuItem& replacement) {
     MenuItem* item = findItem(id);
     if ( ! item) {
         std::cout << "Item not found ! \n" ;
         return false;
     }
-    item ->setName(name);              //updating menu item
-    item ->setCategory(category);
-    item ->setDescription(description);
-    item ->setPrice(price);
-    item ->setAvailable(available);
+    * item = replacement;
     std::cout << "Item edited successfully ! \n";
     return true;
 }
@@ -64,20 +60,26 @@ bool Menu::deleteItem(int id) {
     if (it != items.end()) {
         std::cout << "Item not found ! \n";
         return false;
-    }else {
-        items.erase(it);
-        std::cout << "Item deleted successfully ! \n";
-        return true;
     }
+        items.erase(it);
+        std::cout << "Item removed successfully ! \n";
+        return true;
 }
 
 //displayMenu function
 void Menu::displayMenu() const{
-    std::cout << "\n=============  Restaurant Menu ============\n";
+    std::cout << "\n==================  Restaurant Menu  =================\n";
+    std::cout << std::left << std::setw(5) << "ID"
+    << std::setw(24) << "Name" << std::setw(16) << "Category"
+    << std::setw(10) << "Price" << "Status" << std::endl;
+    std::cout << "\n------------------------------------------------------\n";
     for (const auto& item : items) {
-        std::cout << item.getId() << item.getName() << item.getCategory()
-        << item.getDescription() << item.getPrice()
-        << (item.isAvailable() ? ("available") : ("unavailable")) << std::endl;
+        std::cout << std::left << std::setw(5) << item.getId()
+                  << std::setw(24) << item.getName().substr(0, 23)
+                  << std::setw(16) << item.getCategory().substr(0, 15)
+                  << std::right << std::setw(9) << std::fixed << std::setprecision(2)
+                  << item.getPrice() << "  " << (item.isAvailable() ? "Available" : "Unavailable")
+                  << std::endl;
     }
-    std::cout << "\n===========================================\n";
+    std::cout << "\n======================================================\n";
 }

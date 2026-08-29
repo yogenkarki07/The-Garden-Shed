@@ -9,18 +9,14 @@ class Menu {
     public:
     const std::vector<MenuItem>& getItems() const;
     //function overloading -- compile-time polymorphism
-    const MenuItem* findItem(int itemId) const;   //pointer cannot be modified  - const
-    MenuItem* findItem(int itemId);               // pointer can be modified - edit menu
+    const MenuItem* findItem(int id) const;   //pointer cannot be modified  - const
+    MenuItem* findItem(int id);               // pointer can be modified - edit menu
 
     void clear();
+    //CURD functions
     void addItem (const MenuItem& item);
-    bool editItem (int itemId,
-        const std::string& name,
-        const std::string& category,
-        const std::string& description,
-        double price,
-        bool available);
-    bool deleteItem (int itemId);
+    bool editItem (int id, const MenuItem& replacement);
+    bool deleteItem (int id);
     void displayMenu() const;
 };
 
