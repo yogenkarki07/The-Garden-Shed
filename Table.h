@@ -1,6 +1,5 @@
 #pragma once
 #include<string>
-#include<vector>
 
 enum TableStatus {
     available,
@@ -19,6 +18,21 @@ class Table {
     Table();
     Table(int number, int capacity, TableStatus status = TableStatus::available);
 
-    void setTableNumber(int number);
-    void setCapacity(int capacity);
+    //getters to reader the value
+    int getTableNumber() const;
+    int getCapacity() const;
+    TableStatus getStatus() const;
+    std::string getReservationName() const;
+    std::string getReservationDateTime() const;
+
+    //setters to modify the value
+    void setCapacity(int value);
+    void setStatus(TableStatus value);
+
+    //functions
+    void reserve(const std::string& name, const std::string& dataTime );
+    void clearReservation();
+
+    bool canSeat(int guest) const;
+    std::string stringStatus() const;
 };

@@ -54,6 +54,10 @@ std::string CSVmanager::menuFile() const{
      return dataDirectory + "/menu.csv";
 }
 
+std::string CSVmanager::tableFile() const {
+    return dataDirectory + "/table.csv";
+}
+
 //constructor
 CSVmanager::CSVmanager(const std::string& dataDirectory) : dataDirectory(dataDirectory) {}
 
@@ -65,7 +69,7 @@ bool CSVmanager::saveMenu(const Menu& menu) const {
         return false;
     }
 
-    out << "Item_id, Name, Category, Description, Price, Available\n " ;
+    out << "item_id, Name, dategory, description, price, available\n " ;
 
     for (const auto& item : menu.getItems()) {
         out << item.getId() << ',' << escapeCSV(item.getName()) << ','
@@ -101,4 +105,52 @@ bool CSVmanager::loadMenu(Menu& menu) const {
     return true;
 }
 
+//saveTable function
+bool CSVmanager::saveTable(const std::vector<Table> &tables) const {
+    std::ofstream out(tableFile());
+    if (!out) {
+        std::cout << "Could not open file \n";
+        return false;
+    }
 
+    out << "table_number, capacity, status, reservation_name, reservation_datetime \n" ;
+
+    for (const auto& table : tables) {
+        out << table.getTableNumber() << ',' << table.getCapacity() << ',' << table.stringStatus() << ','
+        << escapeCSV(table.getReservationName()) << ',' << escapeCSV(table.getReservationDateTime()) << '\n';
+    }
+    return true;
+}
+
+//loadTable function
+bool CSVmanager::loadTable(std::vector<Table>& tables) const {
+    std::ifstream in(tableFile());
+    if (!in) {
+        std::cout << "Could not open file \n";
+        return false;
+    }
+
+    tables.clear();
+    std::string line;
+    std::getline(in, line);
+    while (std::getline(in, line)) {
+        if (line.empty()) continue;
+        auto f = parseCSVLine(line);
+        if ( f.size() < 5) continue;
+        try {
+            TableStatus status = TableStatus::available;
+            if (f[2] == "occupied") {
+                status = TableStatus::occupied;
+            } else if (f[2] == "reserved") {
+                status = TableStatus::reserved;
+            }
+            Table table(std::stoi(f[0]), std::stoi(f[1]), status);
+            if (status == TableStatus::available) {
+                table.reserve(f[3], f[4]);
+            }
+            tables.push_back(table);
+        }catch (...) {
+
+        }
+    }
+}
