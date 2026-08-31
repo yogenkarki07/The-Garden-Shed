@@ -13,4 +13,8 @@ add_executable(The_Garden_Shed main.cpp
         Restaurant.cpp
         Restaurant.h
         Table.cpp
-        Table.h)
+        Table.h
+        OrderItem.cpp
+        OrderItem.h
+        Order.cpp
+        Order.h)

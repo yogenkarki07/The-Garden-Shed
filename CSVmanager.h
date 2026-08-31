@@ -3,6 +3,8 @@
 #include "Table.h"
 #include <string>
 
+#include "OrderItem.h"
+
 class CSVmanager {
     std::string dataDirectory;
     std::string menuFile() const;
@@ -18,4 +20,8 @@ public:
     //Table
     bool saveTable(const std::vector<Table>& tables) const;
     bool loadTable(std::vector<Table>& tables) const;
+
+    //OrderItem
+    // bool saveAllOrders(const OrderItem& item) const;
+    // bool loadAllOrders(OrderItem& item) const;
 };
