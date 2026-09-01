@@ -13,7 +13,7 @@ class Menu {
     MenuItem* findItem(int id);               // pointer can be modified - edit menu
 
     void clear();
-    //CURD functions
+    //Menu management functions
     void addItem (const MenuItem& item);
     bool editItem (int id, const MenuItem& replacement);
     bool deleteItem (int id);
