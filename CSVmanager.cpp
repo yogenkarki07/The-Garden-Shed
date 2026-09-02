@@ -54,8 +54,16 @@ std::string CSVmanager::menuFile() const{
      return dataDirectory + "/menu.csv";
 }
 
-std::string CSVmanager::tableFile() const {
+std::string CSVmanager::tablesFile() const {
     return dataDirectory + "/table.csv";
+}
+
+std::string CSVmanager::orderItemsFile() const {
+    return dataDirectory + "/OrderItem.csv";
+}
+
+std::string CSVmanager::ordersFile() const {
+    return dataDirectory + "/Order.csv";
 }
 
 //constructor
@@ -107,7 +115,7 @@ bool CSVmanager::loadMenu(Menu& menu) const {
 
 //saveTable function
 bool CSVmanager::saveTable(const std::vector<Table> &tables) const {
-    std::ofstream out(tableFile());
+    std::ofstream out(tablesFile());
     if (!out) {
         std::cout << "Could not open file \n";
         return false;
@@ -124,7 +132,7 @@ bool CSVmanager::saveTable(const std::vector<Table> &tables) const {
 
 //loadTable function
 bool CSVmanager::loadTable(std::vector<Table>& tables) const {
-    std::ifstream in(tableFile());
+    std::ifstream in(tablesFile());
     if (!in) {
         std::cout << "Could not open file \n";
         return false;
@@ -153,4 +161,9 @@ bool CSVmanager::loadTable(std::vector<Table>& tables) const {
 
         }
     }
+}
+
+//saveOrders function
+bool CSVmanager::saveOrders( const std::vector<Order> &orders) const {
+    
 }

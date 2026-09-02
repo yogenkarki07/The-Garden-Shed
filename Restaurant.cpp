@@ -83,8 +83,10 @@ bool Restaurant::deleteTable(int number) {
 //displayTables function
 void Restaurant::displayTables() {
     std::cout << " ====================  TABLE INFO  ==================== \n" ;
-    std::cout << std:: left << std::setw(8) << "Name" << std::setw(10)
-    << "Capacity" << std::setw(12) << "Status" << "Reservation" << std::endl;
+    std::cout << std:: left << std::setw(8) << "Name" <<
+        std::setw(10)<< "Capacity" <<
+        std::setw(12) << "Status" <<
+        "Reservation" << std::endl;
     std::cout << " ------------------------------------------------------- \n";
 
     for (auto table : tables) {
@@ -93,4 +95,92 @@ void Restaurant::displayTables() {
         << (table.getReservationName().empty()? "-" : table.getReservationName()) << std::endl;
     }
     std::cout << " ====================================================== \n";
+}
+
+//findOrder Function
+Order* Restaurant::findOrder(int id) {
+    for (auto& o : orders) {
+        if (o.getOrderId() == id) {
+            return &o;
+        }
+    }
+    return nullptr;
+}
+
+//getOrders function
+const std::vector<Order>& Restaurant::getOrders() const {
+    return orders;
+}
+
+int Restaurant::nextOrderId() const {
+    int nextId = 0;
+    for (auto& o : orders) {
+        if (o.getOrderId() > nextId) {
+            nextId = o.getOrderId();
+        }
+    }
+    return nextId + 1;
+}
+
+bool Restaurant::addOrder(const Order &order) {
+    if (findOrder(order.getOrderId()) || !findTable(order.getTableNumber())) {
+        return false;
+    }
+    orders.push_back(order);
+    return true;
+}
+
+bool Restaurant::editOrder(int id, const Order &replacement) {
+    Order* order = findOrder(id);
+    if (!order) {
+        std::cout << "Order not found !\n";
+        return false;
+    }
+    *order = replacement;
+    return true;
+}
+
+bool Restaurant::deleteOrder(int id) {
+    for (auto it = orders.begin(); it != orders.end(); ++it) {
+        if (it->getOrderId() == id) {
+            orders.erase(it);
+            std::cout << "Order deleted !\n";
+            return true;
+        }
+    }
+    std::cout << "Order not found !\n";
+    return false;
+}
+
+//Table reservations
+void Restaurant::markTableAsOccupied(int tableNumber) {
+    if (auto* t = findTable(tableNumber)) {
+        t->setStatus(TableStatus::occupied);
+    }
+}
+
+void Restaurant::markTableAsAvailable(int tableNumber) {
+    if (auto* t = findTable(tableNumber)) {
+        bool stillActive = false;
+        for (const auto& o : orders) {
+            if (o.getTableNumber() == tableNumber &&
+               o.getStatus() != orderStatus::served &&
+               o.getStatus() != orderStatus::cancelled) {
+                stillActive = true;
+                break;
+                }
+        }
+        if (!stillActive) {
+            t->setStatus(TableStatus::available);
+        }
+    }
+}
+
+void Restaurant::displayAllOrders(const std::string& date) const{
+    std::cout << " ======================  ORDER INFO  =================== \n" ;
+    for (auto& o : orders) {
+        if (date.empty() || o.getDate() == date) {
+            o.displayOrderInfo();
+        }
+    }
 }

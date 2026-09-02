@@ -1,4 +1,6 @@
 #include "Order.h"
+
+#include <iomanip>
 #include <iostream>
 
 //default constructor
@@ -72,7 +74,7 @@ std::string Order::statusTostring(orderStatus status) {
         case orderStatus::preparing: return "preparing";
         case orderStatus::ready: return "ready";
         case orderStatus::served: return "served";
-        case orderStatus::cancel: return "cancel";
+        case orderStatus::cancelled: return "cancel";
     }
     return "unknown";
 }
@@ -88,7 +90,7 @@ orderStatus Order::stringToStatus(const std::string& value) {
         return orderStatus::served;
     }
     if (value == "cancel") {
-        return orderStatus::cancel;
+        return orderStatus::cancelled;
     }
     return orderStatus::pending;
 }
@@ -135,7 +137,32 @@ bool Order::updateItemQuantity(int menuItemId, int quantity) {
     }
 }
 
-void Order::getTotalOrderPrice() const {
-
+//getTotalOrderPrice - Function to read data(total ordered price)
+double Order::getTotalOrderPrice() const {
+    double total = 0.0;
+    for (const auto& item : items) {
+        total += item.getTotalItemPrice();
+    }
+    return total;
 }
 
+//function to display ordered list
+void Order::displayOrderInfo() const {
+    //display orderItem info
+    std::cout << "Order #" << orderId <<
+        " | Table " << tableNumber <<
+        " | Customer: " << customerName <<
+        " | Status: " << statusString() <<
+        " | " << orderDateTime<< std::endl ;
+
+    //display order info
+    for (const auto& item : items) {
+        std::cout << "  - " << item.getItemName() <<
+            " x" << item.getItemQuantity() <<
+            " @ $" << std::fixed << std::setprecision(2) << item.getItemPrice() <<
+            " = $" << item.getTotalItemPrice() << std::endl;
+    }
+    //display special instruction and total costs
+    std::cout << " Special Instruction: " << specialInstruction << std::endl;
+    std::cout << " Total cost: " << std::fixed << std::setprecision(2) << getTotalOrderPrice() << std::endl;
+}

@@ -8,7 +8,7 @@ enum class orderStatus {
     preparing,
     ready,
     served,
-    cancel
+    cancelled
 };
 
 class Order {
@@ -34,7 +34,7 @@ class Order {
 
     orderStatus getStatus() const;
     const std::vector <OrderItem>& getItems() const;
-    std::string getDate() const;
+    std::string getDate() const; //getDate function - used to display previous date orders
 
     // setters -- to modify data
     void setTableNumber(int value);
@@ -47,7 +47,7 @@ class Order {
     static std::string statusTostring(orderStatus status);
     //Performs the reverse job; converts raw written text back into OrderStatus enum type.
     static orderStatus stringToStatus(const std::string& value);
-
+    //function to read converted status
     std::string statusString() const;
 
     //order management functions
@@ -55,7 +55,9 @@ class Order {
     bool removeItem(int menuItemId);
     bool updateItemQuantity(int menuItemId, int quantity);
 
-    void getTotalOrderPrice() const;
-    void displayAllOrderList() const;
+    //getTotalOrderPrice - Function to read data(total ordered price)
+    double getTotalOrderPrice() const;
+    //function to display ordered list
+    void displayOrderInfo() const;
 
 };
