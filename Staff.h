@@ -1,5 +1,5 @@
 #pragma once
-#include <iostream>
+#include "Restaurant.h"
 #include <string>
 
 class Staff {
@@ -17,8 +17,8 @@ class Staff {
     std::string getName();
 
     //virtual functions
-    virtual std::string role() = 0;
-    virtual void displayDashboard() = 0;
+    virtual std::string role() const = 0;
+    virtual void displayDashboard(Restaurant& restaurant) = 0;
 
 };
 

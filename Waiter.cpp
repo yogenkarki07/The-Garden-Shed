@@ -5,8 +5,6 @@
 #include <iomanip>
 #include <sstream>
 
-#include "Restaurant.h"
-
 //static functions -- no need to create object
 //readInt function -- helps to determine integer - number
 static int readInt(const std::string& prompt) {
@@ -60,8 +58,47 @@ void Waiter::displayDashboard(Restaurant& restaurant) {
                      " 3. Add new order \n" <<
                      " 4. View today's order \n" <<
                      " 5. Exit \n" ;
-        std::cout << "Choose :";
-        std:: cin >> readInt(choice);
+        int choice = readInt("Choose: ");
+        switch (choice) {
+            case 1:
+                restaurant.displayTables();
+                break;
+            case 2:
+                restaurant.getMenu().displayMenu();
+                break;
+            case 3:
+                //Order--part
+                restaurant.displayTables();
+                int tableNo = readInt("Table Number: ");
+                Table* table = restaurant.findTable(tableNo);
+                if (!table) {
+                    std::cout << "Table does not exist ! \n";
+                    continue;
+                }
+                if (table->getStatus() != TableStatus::available) {
+                    std::cout << "Table is not available ! \n";
+                    continue;
+                }
+
+                std::string customer = readLine("Customer Name: ");
+                std::string instructions = readLine(" Special Instructions (optional): ");
+
+                Order order(restaurant.nextOrderId(), tableNo, customer, instructions, todayDateTime());
+
+                //order-items--part
+                while (true) {
+                    restaurant.getMenu().displayMenu();
+                    int itemId = readInt("Menu Item Id (0 to finish): ");
+                    if (itemId == 0) {
+                        break;
+                    }
+
+                    const Menu* item = restaurant.getMenu().findItem(itemId);
+                    if (!item || !item->isAvailable()) {
+
+                    }
+                }
+        }
     }
 
 }

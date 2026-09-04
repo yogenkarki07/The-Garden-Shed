@@ -1,6 +1,5 @@
 #pragma once
 #include "Staff.h"
-#include "Restaurant.h"
 
 class Waiter : public Staff {
     public:
