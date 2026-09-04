@@ -33,7 +33,7 @@ class Order {
     std::string getOrderDateTime() const;
 
     orderStatus getStatus() const;
-    const std::vector <OrderItem>& getItems() const;
+    const std::vector <OrderItem>& getItems() const;  //getItems function - used while read data in files
     std::string getDate() const; //getDate function - used to display previous date orders
 
     // setters -- to modify data
@@ -45,9 +45,9 @@ class Order {
 
     // Converts any OrderStatus enum token into its exact written text.
     static std::string statusTostring(orderStatus status);
-    //Performs the reverse job; converts raw written text back into OrderStatus enum type.
+    //Performs the reverse job; converts raw written text back into OrderStatus enum type. --used in setStatus
     static orderStatus stringToStatus(const std::string& value);
-    //function to read converted status
+    //function to read converted status -- used everywhere inplace of setStatus/getStatus
     std::string statusString() const;
 
     //order management functions

@@ -165,5 +165,88 @@ bool CSVmanager::loadTable(std::vector<Table>& tables) const {
 
 //saveOrders function
 bool CSVmanager::saveOrders( const std::vector<Order> &orders) const {
-    
+    std::ofstream ordersOut(ordersFile());
+    std::ofstream itemsOut(orderItemsFile());
+    if (!itemsOut || !ordersOut) {
+        std::cout << "Could not open file \n";
+        return false;
+    }
+
+    ordersOut << "order_id, table_number, customer_name, special_instruction, status, order_dateTime, total" << std::endl;
+    itemsOut << "order_id, item_id, item_name, item_price, item_quantity" << std::endl;
+
+    for (const auto& order : orders) {
+        ordersOut << order.getOrderId() << ","
+                  << order.getTableNumber() << ","
+                  << escapeCSV(order.getCustomerName()) << ","
+                  << escapeCSV(order.getSpecialInstruction()) << ","
+                  << order.statusString() << ","
+                  << order.getOrderDateTime() << ","
+                  << std::fixed << std::setprecision(2) << order.getTotalOrderPrice() << ","
+                  << std::endl;
+
+        for (const auto& item : order.getItems()) {
+            itemsOut << order.getOrderId() << ","
+                     << item.getMenuItemId() << ","
+                     << escapeCSV(item.getItemName()) << ","
+                     <<std::fixed << std::setprecision(2) << item.getItemPrice() << ","
+                     << item.getItemQuantity() << ","
+                     << std::endl;
+        }
+    }
+        return true;
+}
+
+//loadOrders function
+bool CSVmanager::loadOrders(std::vector<Order>& orders, const Menu& menu) const {
+    std::ifstream ordersIn(ordersFile());
+    std::ifstream itemsIn(orderItemsFile());
+
+    if (!ordersIn || !itemsIn) {
+        std::cout << "Could not open file \n";
+        return false;
+    }
+
+    orders.clear();
+
+    std::string line;
+    std::getline(ordersIn, line);
+    while (std::getline(ordersIn, line)) {
+        if (line.empty()) {
+            continue;
+        }
+        auto f = parseCSVLine(line);
+        if (f.size() < 7) {
+            continue;
+        }
+
+        try {
+            Order order ( std::stoi(f[0]), std::stoi(f[1]), f[2], f[4], f[5] );
+            order.setStatus(Order::stringToStatus(f[3]));
+        } catch (...){}
+    }
+
+    std::getline(itemsIn, line);
+    while (std::getline(itemsIn, line)) {
+        if (line.empty()) {
+            continue;
+        }
+        auto f = parseCSVLine(line);
+        if (f.size() < 5) {
+            continue;
+        }
+
+        try {
+            int orderId = std::stoi(f[0]);
+            for (auto &order : orders) {
+                if (order.getOrderId() == orderId) {
+                    order.addItem(OrderItem(
+                        std::stoi(f[1]), f[2], std::stoi(f[3]), std::stoi(f[4])
+                        ));
+                    orders.push_back(order);
+                }
+            }
+        }catch (...){}
+    }
+    return true;
 }

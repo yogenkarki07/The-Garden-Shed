@@ -17,4 +17,8 @@ add_executable(The_Garden_Shed main.cpp
         OrderItem.cpp
         OrderItem.h
         Order.cpp
-        Order.h)
+        Order.h
+        Staff.cpp
+        Staff.h
+        Waiter.cpp
+        Waiter.h)

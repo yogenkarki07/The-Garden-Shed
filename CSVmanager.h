@@ -5,8 +5,6 @@
 #include "Order.h"
 #include <string>
 
-#include "OrderItem.h"
-
 class CSVmanager {
     std::string dataDirectory;
     std::string menuFile() const;

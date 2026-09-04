@@ -40,13 +40,11 @@ class Restaurant {
     //Order operations
     Order* findOrder(int id);   //findOrder Function
     const std::vector<Order>& getOrders() const;  //getOrders function
-
     //order management
     int nextOrderId() const;
     bool addOrder(const Order& order); //addOrder function
     bool editOrder(int id, const Order& replacement);  //editOrder function
     bool deleteOrder(int id); //deleteOrder function
-
     void displayAllOrders(const std::string& date = "") const;  //displayOrders function
 
 };
