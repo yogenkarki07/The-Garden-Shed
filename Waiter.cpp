@@ -67,6 +67,7 @@ void Waiter::displayDashboard(Restaurant& restaurant) {
                 restaurant.getMenu().displayMenu();
                 break;
             case 3:
+            {
                 //Order--part
                 restaurant.displayTables();
                 int tableNo = readInt("Table Number: ");
@@ -93,15 +94,49 @@ void Waiter::displayDashboard(Restaurant& restaurant) {
                         break;
                     }
 
-                    const Menu* item = restaurant.getMenu().findItem(itemId);
-                    if (!item || !item->isAvailable()) {
+                    const MenuItem* item = restaurant.getMenu().findItem(itemId);
+                    if (!item) {
+                        std::cout << "Invalid item \n";
+                        continue;
+                    }
 
+                    if (!item->isAvailable()) {
+                        std::cout << "Unavailable item \n";
+                        continue;
+                    }
+
+                    int quantity = readInt("Quantity: ");
+                    if (quantity <= 0) {
+                        std::cout << "Quantity must be positive\n";
+                        continue;
+                    }
+
+                    order.addItem(OrderItem(item->getId(), item->getName(), item->getPrice(), quantity));
+
+                    std::cout << "Item added !\n";
+
+                    if (order.getItems().empty()) {
+                        std::cout << "Order cancelled. No item selected !\n";
+                    }else {
+                        restaurant.addOrder(order);
+                        restaurant.saveData();
+                        std::cout << "Order No: " << order.getOrderId() << " sent to kitchen.\n"
+                        << " Total: $" << order.getTotalOrderPrice() << std::endl;
                     }
                 }
+            }
+            break;
+
+            case 4:
+                restaurant.displayAllOrders(todayDateTime().substr(0,10));
+                break;
+
+            case 5:
+                // std::cout << "back to main menu" << std::endl;
+                break;
+
+            default:
+                std::cout << "Invalid choice \n";
         }
     }
-
 }
-
-
-
