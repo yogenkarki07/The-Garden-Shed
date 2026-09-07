@@ -1,4 +1,4 @@
-#include "Staff.h"
+#include "../include/Staff.h"
 #include <iostream>
 #include <string>
 

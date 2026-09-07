@@ -1,4 +1,4 @@
-#include "CSVmanager.h"
+#include "../include/CSVmanager.h"
 #include <iostream>
 #include <sstream>
 #include <fstream>

@@ -46,5 +46,4 @@ class Restaurant {
     bool editOrder(int id, const Order& replacement);  //editOrder function
     bool deleteOrder(int id); //deleteOrder function
     void displayAllOrders(const std::string& date = "") const;  //displayOrders function
-
 };

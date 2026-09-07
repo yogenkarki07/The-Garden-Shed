@@ -1,5 +1,5 @@
-#include "Waiter.h"
-#include "Restaurant.h"
+#include "../include/Waiter.h"
+#include "../include/Restaurant.h"
 #include <iostream>
 #include <ctime>
 #include <iomanip>
@@ -30,7 +30,7 @@ static std::string todayDateTime() {
     localtime_r(&now, &tm);
 #endif
     std::ostringstream out;
-    out << std::put_time(&tm, "%Y-%m-%d %H:%M");
+    out << std::put_time(&tm, "%Y-%m-%d %H:%M:%S");
     return out.str();
 }
 

@@ -1,4 +1,4 @@
-#include "Table.h"
+#include "../include/Table.h"
 #include <iostream>
 
 //Default constructor
