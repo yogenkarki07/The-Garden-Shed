@@ -49,4 +49,7 @@ class Restaurant {
 
     //kitchen operation
     void displayKitchenQueue() const;
+
+    //sales --report/info
+    
 };

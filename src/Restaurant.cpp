@@ -155,7 +155,7 @@ bool Restaurant::deleteOrder(int id) {
 //Table reservations
 void Restaurant::markTableAsOccupied(int tableNumber) {
     if (auto* t = findTable(tableNumber)) {
-        t->setStatus(TableStatus::occupied);
+        t->setStatus(tableStatus::occupied);
     }
 }
 
@@ -171,7 +171,7 @@ void Restaurant::markTableAsAvailable(int tableNumber) {
                 }
         }
         if (!stillActive) {
-            t->setStatus(TableStatus::available);
+            t->setStatus(tableStatus::available);
         }
     }
 }

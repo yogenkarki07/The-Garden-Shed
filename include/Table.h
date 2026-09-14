@@ -1,7 +1,7 @@
 #pragma once
 #include<string>
 
-enum TableStatus {
+enum tableStatus {
     available,
     occupied,
     reserved,
@@ -10,24 +10,24 @@ enum TableStatus {
 class Table {
     int tableNumber;
     int capacity;
-    TableStatus status;
+    tableStatus status;
     std::string reservationName;
     std::string reservationDateTime;
 
     public:
     Table();
-    Table(int number, int capacity, TableStatus status = TableStatus::available);
+    Table(int number, int capacity, tableStatus status = tableStatus::available);
 
     //getters to reader the value
     int getTableNumber() const;
     int getCapacity() const;
-    TableStatus getStatus() const;
+    tableStatus getStatus() const;
     std::string getReservationName() const;
     std::string getReservationDateTime() const;
 
     //setters to modify the value
     void setCapacity(int value);
-    void setStatus(TableStatus value);
+    void setStatus(tableStatus value);
 
     //functions
     void reserve(const std::string& name, const std::string& dataTime );

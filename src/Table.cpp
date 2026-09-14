@@ -2,10 +2,10 @@
 #include <iostream>
 
 //Default constructor
-Table::Table() : tableNumber(0), capacity(0), status(TableStatus::available){}
+Table::Table() : tableNumber(0), capacity(0), status(tableStatus::available){}
 
 // Parameterized constructor
-Table::Table(int number, int capacity, TableStatus status) : tableNumber(number), capacity(capacity), status(status){}
+Table::Table(int number, int capacity, tableStatus status) : tableNumber(number), capacity(capacity), status(status){}
 
 //getters
 int Table::getTableNumber() const{
@@ -16,7 +16,7 @@ int Table::getCapacity() const {
     return capacity;
 }
 
-TableStatus Table::getStatus() const {
+tableStatus Table::getStatus() const {
     return status;
 }
 
@@ -33,7 +33,7 @@ void Table::setCapacity(int value) {
     capacity = value;
 }
 
-void Table::setStatus(TableStatus value) {
+void Table::setStatus(tableStatus value) {
     status = value;
 }
 
@@ -41,26 +41,26 @@ void Table::setStatus(TableStatus value) {
 void Table::reserve(const std::string& name, const std::string& dateTime) {
     reservationName = name;
     reservationDateTime = dateTime;
-    status = TableStatus::reserved;
+    status = tableStatus::reserved;
 }
 
 //clearReservation function
 void Table::clearReservation() {
     reservationName.clear();
     reservationDateTime.clear();
-    status = TableStatus::available;
+    status = tableStatus::available;
 }
 
 //canSeat & availableSeat function
 bool Table::canSeat(int guest) const {
-    return guest > 0 && guest <= capacity && status == TableStatus::available;
+    return guest > 0 && guest <= capacity && status == tableStatus::available;
 }
 
 std::string Table::stringStatus() const {
     switch (status) {
-        case TableStatus::available : return "Available";
-        case TableStatus::occupied: return "Occupied";
-        case TableStatus::reserved: return "Reserved";
+        case tableStatus::available : return "Available";
+        case tableStatus::occupied: return "Occupied";
+        case tableStatus::reserved: return "Reserved";
         }
     return "Unknown";
     }

@@ -76,7 +76,7 @@ void Waiter::displayDashboard(Restaurant& restaurant) {
                     std::cout << "Table does not exist ! \n";
                     continue;
                 }
-                if (table->getStatus() != TableStatus::available) {
+                if (table->getStatus() != tableStatus::available) {
                     std::cout << "Table is not available ! \n";
                     continue;
                 }

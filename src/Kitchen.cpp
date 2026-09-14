@@ -3,7 +3,6 @@
 #include<iostream>
 #include<string>
 
-
 //kitchenInt function -- helps to determine integer - number
 static int kitchenInt(const std::string& prompt) {
     int value;

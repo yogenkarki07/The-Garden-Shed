@@ -146,14 +146,14 @@ bool CSVmanager::loadTable(std::vector<Table>& tables) const {
         auto f = parseCSVLine(line);
         if ( f.size() < 5) continue;
         try {
-            TableStatus status = TableStatus::available;
+            tableStatus status = tableStatus::available;
             if (f[2] == "occupied") {
-                status = TableStatus::occupied;
+                status = tableStatus::occupied;
             } else if (f[2] == "reserved") {
-                status = TableStatus::reserved;
+                status = tableStatus::reserved;
             }
             Table table(std::stoi(f[0]), std::stoi(f[1]), status);
-            if (status == TableStatus::available) {
+            if (status == tableStatus::available) {
                 table.reserve(f[3], f[4]);
             }
             tables.push_back(table);
@@ -161,6 +161,7 @@ bool CSVmanager::loadTable(std::vector<Table>& tables) const {
 
         }
     }
+    return true;
 }
 
 //saveOrders function

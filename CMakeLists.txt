@@ -23,4 +23,6 @@ add_executable(The_Garden_Shed src/main.cpp
         src/Waiter.cpp
         include/Waiter.h
         src/Kitchen.cpp
-        include/Kitchen.h)
+        include/Kitchen.h
+        src/Manager.cpp
+        include/Manager.h)
