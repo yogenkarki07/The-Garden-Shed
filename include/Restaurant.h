@@ -28,7 +28,7 @@ class Restaurant {
     Table* findTable(int number);  //findTable function
     const std::vector<Table>& getTables() const;   //getTables function
     //table management
-    bool addTable(Table& table); //addTable function
+    bool addTable(const Table& table); //addTable function
     bool editTable(int number, const Table& replacement); //editTable function
     bool deleteTable(int number); //deleteTable function
     void displayTables(); //displayTables function
@@ -46,4 +46,7 @@ class Restaurant {
     bool editOrder(int id, const Order& replacement);  //editOrder function
     bool deleteOrder(int id); //deleteOrder function
     void displayAllOrders(const std::string& date = "") const;  //displayOrders function
+
+    //kitchen operation
+    void displayKitchenQueue() const;
 };

@@ -137,6 +137,7 @@ void Waiter::displayDashboard(Restaurant& restaurant) {
 
             default:
                 std::cout << "Invalid choice \n";
+                break;
         }
     }
 }

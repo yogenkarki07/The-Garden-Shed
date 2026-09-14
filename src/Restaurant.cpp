@@ -45,7 +45,7 @@ const std::vector<Table>& Restaurant::getTables() const {
 }
 
 //addTable function
-bool Restaurant::addTable(Table &table) {
+bool Restaurant::addTable(const Table &table){
     if (findTable(table.getTableNumber())) {
         std::cout << "Table already exists !\n";
         return false;
@@ -180,6 +180,16 @@ void Restaurant::displayAllOrders(const std::string& date) const{
     std::cout << " ======================  ORDER INFO  =================== \n" ;
     for (auto& o : orders) {
         if (date.empty() || o.getDate() == date) {
+            o.displayOrderInfo();
+        }
+    }
+}
+
+//displaykitchenQueue function
+void Restaurant::displayKitchenQueue() const{
+    std::cout << " ====================== Kitchen Queue =================== \n" ;
+    for (const auto& o : orders) {
+        if (o.getStatus() != orderStatus::served || o.getStatus() != orderStatus::cancelled) {
             o.displayOrderInfo();
         }
     }

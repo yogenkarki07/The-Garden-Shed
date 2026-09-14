@@ -1,5 +1,6 @@
 #include "../include/Restaurant.h"
 #include "../include/Waiter.h"
+#include "../include/Kitchen.h"
 #include "../include/Table.h"
 #include<filesystem>
 #include<iostream>
@@ -7,11 +8,11 @@
 int main() {
 
     std::filesystem::create_directories("data");
-    Restaurant restaurant("data");
 
+    Restaurant restaurant("data");
     restaurant.loadData();
 
-    //incase if tables are empty, this function will store dummy tables. Table.csv file will not be empty.
+    // //Incase if tables are empty, this function will store dummy tables. Table.csv file will not be empty.
     if (restaurant.getTables().empty()) {
         restaurant.addTable(Table(1, 2));
         restaurant.addTable(Table(2, 4));
@@ -25,7 +26,7 @@ int main() {
         restaurant.addTable(Table(10, 2));
     }
 
-    //incase menu is empty, this function will store menu even though menu.csv file is empty
+    //Incase menu is empty, this function will store menu even though menu.csv file is empty
     if (restaurant.getMenu().getItems().empty()) {
         restaurant.getMenu().addItem(MenuItem(1, "Teriyaki Chicken", "Mains",
     "Grilled chicken with teriyaki glaze and steamed rice.", 22.50));
@@ -41,10 +42,11 @@ int main() {
             "Refreshing iced tea with lychee.", 6.50));
     }
 
-    restaurant.loadData();
+    restaurant.saveData();
 
     // Manager manager(1, "Manager");
     Waiter waiter (2, "Front of House");
+    Kitchen kitchen(3, "Kitchen Staff");
 
     char again = 'Y';
     int choice;
@@ -56,13 +58,18 @@ int main() {
         std::cout << " 4. Exit \n";
         std::cout << " ====================================\n";
         std::cout << " Choose role: ";
-        std::cin >> choice;
+        if (!(std::cin >> choice)) {
+            std::cin.clear();
+            std::cin.ignore(1000, '\n');
+            std::cout << "Invalid choice ! \n";
+        }
 
         switch (choice) {
             case 1:
-
+                waiter.displayDashboard(restaurant);
                 break;
             case 2:
+                kitchen.displayDashboard(restaurant);
                 break;
             case 3:
                 break;

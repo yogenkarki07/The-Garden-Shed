@@ -1,6 +1,9 @@
 #pragma once
-#include "Restaurant.h"
+#include "Staff.h"
 
-class KitchenStaff {
-
+class Kitchen : public Staff {
+    public:
+    Kitchen(int id, std::string name);
+    std::string role() const override ;
+    void displayDashboard(Restaurant& restaurant) override ;
 };

@@ -35,7 +35,7 @@ void Menu::clear() {
 //addItem function
 void Menu::addItem(const MenuItem& item) {
     items.push_back(item);
-    std::cout << "Item added successfully ! \n";
+    std::cout << "Item added ! \n";
 }
 
 //editItem Function
@@ -46,7 +46,7 @@ bool Menu::editItem(int id, const MenuItem& replacement) {
         return false;
     }
     * item = replacement;
-    std::cout << "Item edited successfully ! \n";
+    std::cout << "Item edited ! \n";
     return true;
 }
 
@@ -62,7 +62,7 @@ bool Menu::deleteItem(int id) {
         return false;
     }
         items.erase(it);
-        std::cout << "Item removed successfully ! \n";
+        std::cout << "Item removed ! \n";
         return true;
 }
 
