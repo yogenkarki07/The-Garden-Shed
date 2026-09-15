@@ -34,7 +34,7 @@ void Kitchen::displayDashboard(Restaurant &restaurant) {
                      " 5. Exit \n" ;
         int choice = kitchenInt("Choose: ");
 
-        if ( choice ==1) {
+        if ( choice == 1) {
             restaurant.displayKitchenQueue();
         }
 

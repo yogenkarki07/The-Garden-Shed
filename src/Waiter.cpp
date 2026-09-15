@@ -133,7 +133,7 @@ void Waiter::displayDashboard(Restaurant& restaurant) {
 
             case 5:
                 // std::cout << "back to main menu" << std::endl;
-                break;
+                return;
 
             default:
                 std::cout << "Invalid choice \n";

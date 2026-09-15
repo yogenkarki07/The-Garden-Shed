@@ -16,6 +16,8 @@ class Menu {
     void addItem (const MenuItem& item);
     bool editItem (int id, const MenuItem& replacement);
     bool deleteItem (int id);
+
+    int nextId() const;
     void displayMenu() const;
 };
 

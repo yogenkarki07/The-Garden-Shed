@@ -35,7 +35,7 @@ void Menu::clear() {
 //addItem function
 void Menu::addItem(const MenuItem& item) {
     items.push_back(item);
-    std::cout << "Item added ! \n";
+    // std::cout << "Item added ! \n";
 }
 
 //editItem Function
@@ -64,6 +64,17 @@ bool Menu::deleteItem(int id) {
         items.erase(it);
         std::cout << "Item removed ! \n";
         return true;
+}
+
+//function nextId
+int Menu::nextId() const {
+    int maxId = 0;
+    for (const auto& item : items) {
+        if (item.getId() > maxId) {
+            maxId = item.getId();
+        }
+    }
+    return maxId +1;
 }
 
 //displayMenu function
