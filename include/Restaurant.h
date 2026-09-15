@@ -3,7 +3,6 @@
 #include "Table.h"
 #include "Order.h"
 #include <string>
-
 #include "CSVmanager.h"
 
 class Restaurant {
@@ -51,5 +50,8 @@ class Restaurant {
     void displayKitchenQueue() const;
 
     //sales --report/info
-    
+    double totalIncome (const std::string& date) const;
+    int orderCount(const std::string& date) const;
+    std::pair<std::string, int> mostOrderedItem(const std::string& date) const;
+    void generateSalesReport(const std::string& date) const;
 };

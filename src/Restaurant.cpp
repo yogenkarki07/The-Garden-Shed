@@ -2,6 +2,7 @@
 #include<iostream>
 #include<string>
 #include <iomanip>
+#include <map>
 
 Restaurant::Restaurant(const std::string& directory) : csvManager(directory){}
 
@@ -193,4 +194,84 @@ void Restaurant::displayKitchenQueue() const{
             o.displayOrderInfo();
         }
     }
+}
+
+//sales --report/info
+double Restaurant::totalIncome(const std::string& date) const {
+    double total = 0;
+    for (auto& o : orders) {
+        if (o.getDate() == date && o.getStatus() == orderStatus::served) {
+            total += o.getTotalOrderPrice();
+        }
+    }
+    return total;
+}
+
+int Restaurant::orderCount(const std::string& date) const {
+    int count = 0;
+    for (auto& o : orders) {
+        if (o.getDate() == date && o.getStatus() == orderStatus::served) {
+            count++;
+        }
+    }
+    return count;
+}
+
+std::pair<std::string, int> Restaurant::mostOrderedItem(const std::string& date) const {
+    std::map<std::string, int> counts;
+    for (auto& o : orders) {
+        if (o.getDate() != date || o.getStatus() == orderStatus::cancelled) continue;
+        for (const auto& item : o.getItems()) {
+            counts[item.getItemName()] += item.getItemQuantity();
+        }
+    }
+        std::pair<std::string, int> result{"none", 0};
+        for (const auto& [name, count] : counts) {
+            if (count > result.second) result = { name, count };
+        }
+        return result;
+}
+
+void Restaurant::generateSalesReport(const std::string& date) const {
+    int occupied = 0, reserved = 0, available = 0;
+
+    for (const auto& t : tables) {
+        if (t.getStatus() == tableStatus::occupied) ++occupied;
+        else if (t.getStatus() == tableStatus::reserved) ++reserved;
+        else ++available;
+    }
+
+    auto top = mostOrderedItem(date);
+
+    std::map<std::string, int> itemCounts;
+    int orderedItemUnits = 0;
+
+    for (const auto& o : orders) {
+        if (o.getDate() != date || o.getStatus() == orderStatus::cancelled) continue;
+
+        for (const auto&item : o.getItems()) {
+            itemCounts[item.getItemName()] += item.getItemQuantity();
+            orderedItemUnits += item.getItemQuantity();
+        }
+
+    }
+
+    std::cout << "\n ==================================================== \n";
+    std::cout << "        THE GARDEN SHED - DAILY SALES-REPORT \n";
+
+    std::cout << " ====================================================== \n";
+    std::cout << "Date: " << date << "\n\n";
+    std::cout << "TABLE OCCUPANCY\n";
+    std::cout << "   Available : " << available << "\n";
+    std::cout << "   Occupied  : " << occupied << "\n";
+    std::cout << "   Reserved  : " << reserved << "\n\n";
+    std::cout << "ORDERED OPERATIONS\n";
+    std::cout << "   Number of orders   : " << orderCount(date) << '\n';
+    std::cout << "   Ordered item units : " << orderedItemUnits << "\n";
+    std::cout << "   Total Income       : " << totalIncome(date) << "\n\n";
+    std::cout << "   ITEM BREAKDOWN \n";
+    for (const auto& [name, count] : itemCounts) {
+        std::cout << "   " << std::left << std::setw(30) << name << count << "\n";
+    }
+    std::cout << " ===================================================== \n";
 }
