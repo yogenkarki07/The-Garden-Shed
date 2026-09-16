@@ -35,7 +35,7 @@ namespace {
                     field += '"';
                     ++i;
                 }else {
-                    quoted != quoted;
+                    quoted = !quoted;
                 }
             }else if (c == ',' && !quoted) {
                 fields.push_back(field);
@@ -153,12 +153,13 @@ bool CSVmanager::loadTable(std::vector<Table>& tables) const {
                 status = tableStatus::reserved;
             }
             Table table(std::stoi(f[0]), std::stoi(f[1]), status);
-            if (status == tableStatus::available) {
+
+            if (status == tableStatus::reserved) {
                 table.reserveTable(f[3], f[4]);
             }
             tables.push_back(table);
         }catch (...) {
-
+            std::cout << "Invalid table data in CSV\n";
         }
     }
     return true;
@@ -207,9 +208,9 @@ bool CSVmanager::loadOrders(std::vector<Order>& orders, const Menu& menu) const 
         std::cout << "Could not open file \n";
         return false;
     }
-
+    // Remove any existing orders from memory
     orders.clear();
-
+    //load orders --
     std::string line;
     std::getline(ordersIn, line);
     while (std::getline(ordersIn, line)) {
@@ -222,11 +223,21 @@ bool CSVmanager::loadOrders(std::vector<Order>& orders, const Menu& menu) const 
         }
 
         try {
-            Order order ( std::stoi(f[0]), std::stoi(f[1]), f[2], f[4], f[5] );
-            order.setStatus(Order::stringToStatus(f[3]));
-        } catch (...){}
+            Order order ( std::stoi(f[0]),
+                std::stoi(f[1]),
+                f[2],
+                f[3],
+                f[5] );
+            order.setStatus(
+                Order::stringToStatus(f[4])
+                );
+            orders.push_back(order);
+        } catch (...) {
+            std::cout << "Invalid order data in CSV\n";
+        }
     }
 
+    //loads order-items
     std::getline(itemsIn, line);
     while (std::getline(itemsIn, line)) {
         if (line.empty()) {
@@ -239,15 +250,22 @@ bool CSVmanager::loadOrders(std::vector<Order>& orders, const Menu& menu) const 
 
         try {
             int orderId = std::stoi(f[0]);
+            // Find the existing order
             for (auto &order : orders) {
                 if (order.getOrderId() == orderId) {
-                    order.addItem(OrderItem(
-                        std::stoi(f[1]), f[2], std::stoi(f[3]), std::stoi(f[4])
-                        ));
-                    orders.push_back(order);
+                    OrderItem items(
+                         std::stoi(f[1]),
+                                  f[2],
+                          std::stod(f[3]),
+                        std::stoi(f[4])
+                        );
+                    order.addItem(items);
+                    break;
                 }
             }
-        }catch (...){}
+        }catch (...) {
+            std::cout << "Invalid order item data in CSV\n";
+        }
     }
     return true;
 }

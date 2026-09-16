@@ -30,7 +30,7 @@ class Restaurant {
     bool addTable(const Table& table); //addTable function
     bool editTable(int number, const Table& replacement); //editTable function
     bool deleteTable(int number); //deleteTable function
-    void displayTables(); //displayTables function
+    void displayTables() const; //displayTables function
 
     //Table reservations
     void markTableAsOccupied(int tableNumber);

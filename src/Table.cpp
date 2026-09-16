@@ -58,9 +58,9 @@ bool Table::canSeat(int guest) const {
 
 std::string Table::stringStatus() const {
     switch (status) {
-        case tableStatus::available : return "Available";
-        case tableStatus::occupied: return "Occupied";
-        case tableStatus::reserved: return "Reserved";
+        case tableStatus::available : return "available";
+        case tableStatus::occupied: return "occupied";
+        case tableStatus::reserved: return "reserved";
         }
     return "Unknown";
     }

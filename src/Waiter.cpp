@@ -112,7 +112,7 @@ void Waiter::displayDashboard(Restaurant& restaurant) {
                     }
 
                     order.addItem(OrderItem(item->getId(), item->getName(), item->getPrice(), quantity));
-
+                }
                     std::cout << "Item added !\n";
 
                     if (order.getItems().empty()) {
@@ -123,7 +123,6 @@ void Waiter::displayDashboard(Restaurant& restaurant) {
                         std::cout << "Order No: " << order.getOrderId() << " sent to kitchen.\n"
                         << " Total: $" << order.getTotalOrderPrice() << std::endl;
                     }
-                }
             }
             break;
 

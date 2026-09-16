@@ -74,7 +74,7 @@ std::string Order::statusTostring(orderStatus status) {
         case orderStatus::preparing: return "preparing";
         case orderStatus::ready: return "ready";
         case orderStatus::served: return "served";
-        case orderStatus::cancelled: return "cancel";
+        case orderStatus::cancelled: return "cancelled";
     }
     return "unknown";
 }
@@ -89,7 +89,7 @@ orderStatus Order::stringToStatus(const std::string& value) {
     if (value == "served") {
         return orderStatus::served;
     }
-    if (value == "cancel") {
+    if (value == "cancelled") {
         return orderStatus::cancelled;
     }
     return orderStatus::pending;

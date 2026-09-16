@@ -10,14 +10,16 @@ Restaurant::Restaurant(const std::string& directory) : csvManager(directory){}
 bool Restaurant::saveData() const {
     bool menuSaved = csvManager.saveMenu(menu);
     bool tableSaved = csvManager.saveTable(tables);
-    return menuSaved && tableSaved;
+    bool ordersSaved = csvManager.saveOrders(orders);
+    return menuSaved && tableSaved && ordersSaved;
 }
 
 //loadData function
 bool Restaurant::loadData() {
     bool menuLoaded = csvManager.loadMenu(menu);
     bool tableLoaded = csvManager.loadTable(tables);
-    return menuLoaded && tableLoaded;
+    bool ordersLoaded = csvManager.loadOrders(orders, menu)
+    return menuLoaded && tableLoaded && ordersLoaded;
 }
 
 //Menu operations functions
@@ -82,7 +84,7 @@ bool Restaurant::deleteTable(int number) {
 }
 
 //displayTables function
-void Restaurant::displayTables() {
+void Restaurant::displayTables() const {
     std::cout << " ====================  TABLE INFO  ==================== \n" ;
     std::cout << std:: left << std::setw(8) << "Name" <<
         std::setw(10)<< "Capacity" <<
