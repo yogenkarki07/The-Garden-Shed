@@ -30,8 +30,8 @@ class Table {
     void setStatus(tableStatus value);
 
     //functions
-    void reserve(const std::string& name, const std::string& dataTime );
-    void clearReservation();
+    void reserveTable(const std::string& name, const std::string& dataTime );
+    void clearTableReservation();
 
     bool canSeat(int guest) const;
     std::string stringStatus() const;

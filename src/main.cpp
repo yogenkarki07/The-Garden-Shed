@@ -1,4 +1,5 @@
 #include "../include/Restaurant.h"
+#include "../include/Manager.h"
 #include "../include/Waiter.h"
 #include "../include/Kitchen.h"
 #include "../include/Table.h"
@@ -44,7 +45,7 @@ int main() {
 
     restaurant.saveData();
 
-    // Manager manager(1, "Manager");
+    Manager manager(1, "Manager");
     Waiter waiter (2, "Front of House");
     Kitchen kitchen(3, "Kitchen Staff");
 
@@ -72,6 +73,7 @@ int main() {
                 kitchen.displayDashboard(restaurant);
                 break;
             case 3:
+                manager.displayDashboard(restaurant);
                 break;
             case 4:
                 std::cout << " Thank you \n";

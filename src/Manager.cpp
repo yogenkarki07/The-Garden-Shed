@@ -48,7 +48,8 @@ void Manager::displayDashboard(Restaurant& restaurant) {
                      " 2. Table Management \n" <<
                      " 3. Order Management \n" <<
                      " 4. Daily Sales Report \n" <<
-                     " 5. Exit \n" ;
+                     " 5. Save Data \n" <<
+                     " 6. Exit \n" ;
         int choice = mInt("Enter Choice");
         switch (choice) {
             case 1:
@@ -64,6 +65,9 @@ void Manager::displayDashboard(Restaurant& restaurant) {
                 dailySalesReport(restaurant);
                 break;
             case 5:
+                std::cout << (restaurant.saveData() ? "Data saved! \n" : "Failed to save data! \n");
+                break;
+            case 6:
                 return;
             default:
                 std::cout << "Invalid Choice!\n";
@@ -180,7 +184,7 @@ void Manager::tableManagement(Restaurant& restaurant) {
 
                 Table replacement(number, capacity, oldTable->getStatus());
                 if (oldTable->getStatus() == tableStatus::reserved) {
-                    replacement.reserve(oldTable->getReservationName(), oldTable->getReservationDateTime());
+                    replacement.reserveTable(oldTable->getReservationName(), oldTable->getReservationDateTime());
                 }
                 restaurant.editTable(number, replacement);
                 restaurant.saveData();
@@ -208,7 +212,7 @@ void Manager::tableManagement(Restaurant& restaurant) {
                 }
                 std::string name = mLine("Reservation name: ");
                 std::string time = mLine(" Reservation date/time (YYYY-MM-DD  HH-MM): ");
-                table->reserve(name, time);
+                table->reserveTable(name, time);
                 restaurant.saveData();
                 std::cout << "Table number #" << number << " reserved!\n";
             }
@@ -218,7 +222,7 @@ void Manager::tableManagement(Restaurant& restaurant) {
                 int number = mInt("Table number: ");
                 Table* table = restaurant.findTable(number);
                 if (table) {
-                    table->clearReservation();
+                    table->clearTableReservation();
                     restaurant.saveData();
                     std::cout << "Reservation cleared !!" << std::endl;
                 }else {
@@ -301,24 +305,26 @@ void Manager::orderManagement(Restaurant &restaurant) {
                                      " 3. Ready \n"
                                      " 4. Served \n"
                                      " 5. Cancelled \n";
-                        int option = mInt("Choice: ");
-                        if (option == 1) {
+                        int status = mInt("Choice: ");
+                        if (status == 1) {
                             order->setStatus(orderStatus::pending);
                         }
-                        else if (option == 2) {
+                        else if (status == 2) {
                             order->setStatus(orderStatus::preparing);
                         }
-                        else if (option == 3) {
+                        else if (status == 3) {
                             order->setStatus(orderStatus::ready);
                         }
-                        else if (option == 4) {
+                        else if (status == 4) {
                             order->setStatus(orderStatus::served);
-                        }else if (option == 5) {
+                        }else if (status == 5) {
                             order->setStatus(orderStatus::cancelled);
+                        }else {
+                            std::cout << "Invalid Choice!\n";
                         }
                     }
                         restaurant.saveData();
-                        std::cout << "Order updated\n";
+                        std::cout << "Order with ID #" << id << " updated\n";
                         break;
                         case 5:
                             return;
@@ -329,6 +335,15 @@ void Manager::orderManagement(Restaurant &restaurant) {
                 }
                 break;
             case 4:
+            {
+                int id = mInt("Enter Order ID: ");
+                if (restaurant.deleteOrder(id)) {
+                    restaurant.saveData();
+                    std::cout << "Order with ID #" << id << " deleted\n";
+                }else {
+                    std::cout << "Order not found!\n";
+                }
+            }
                 break;
             case 5:
                 return;
@@ -337,4 +352,22 @@ void Manager::orderManagement(Restaurant &restaurant) {
                 break;
         }
     }
+}
+
+//dailySalesReport
+void Manager::dailySalesReport(Restaurant &restaurant) {
+    std::string date = mLine("Report date (YYYY-MM-DD, blank = today): ");
+    if (date.empty()) date = [] {
+            auto now = std::time(nullptr);
+            std::tm tm{};
+#ifdef _WIN32
+            localtime_s(&tm, &now);
+#else
+            localtime_r(&now, &tm);
+#endif
+            char buffer [11] {};
+            std::strftime(buffer, sizeof(buffer), "%Y-%m-%d", &tm);
+            return std::string(buffer);
+        }();
+    restaurant.generateSalesReport(date);
 }

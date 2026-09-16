@@ -38,14 +38,14 @@ void Table::setStatus(tableStatus value) {
 }
 
 //reserve function
-void Table::reserve(const std::string& name, const std::string& dateTime) {
+void Table::reserveTable(const std::string& name, const std::string& dateTime) {
     reservationName = name;
     reservationDateTime = dateTime;
     status = tableStatus::reserved;
 }
 
 //clearReservation function
-void Table::clearReservation() {
+void Table::clearTableReservation() {
     reservationName.clear();
     reservationDateTime.clear();
     status = tableStatus::available;

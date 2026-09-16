@@ -154,7 +154,7 @@ bool CSVmanager::loadTable(std::vector<Table>& tables) const {
             }
             Table table(std::stoi(f[0]), std::stoi(f[1]), status);
             if (status == tableStatus::available) {
-                table.reserve(f[3], f[4]);
+                table.reserveTable(f[3], f[4]);
             }
             tables.push_back(table);
         }catch (...) {
