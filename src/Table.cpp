@@ -51,9 +51,14 @@ void Table::clearTableReservation() {
     status = tableStatus::available;
 }
 
-//canSeat & availableSeat function
-bool Table::canSeat(int guest) const {
+//freetable & availableTable function
+bool Table::freeTable(int guest) {
     return guest > 0 && guest <= capacity && status == tableStatus::available;
+}
+
+//occupyTable function
+bool Table::occupyTable() {
+    return status == tableStatus::occupied;
 }
 
 std::string Table::stringStatus() const {

@@ -50,7 +50,7 @@ void Manager::displayDashboard(Restaurant& restaurant) {
                      " 4. Daily Sales Report \n" <<
                      " 5. Save Data \n" <<
                      " 6. Exit \n" ;
-        int choice = mInt("Enter Choice");
+        int choice = mInt("Enter Choice: ");
         switch (choice) {
             case 1:
                 menuManagement(restaurant);
@@ -79,13 +79,13 @@ void Manager::displayDashboard(Restaurant& restaurant) {
 //menu management -- function
 void Manager::menuManagement(Restaurant &restaurant) {
     while (true) {
-        std::cout << "  --- MENU MANAGEMENT ---  " ;
+        std::cout << "  --- MENU MANAGEMENT ---  \n" ;
         std::cout << "  1. Add item \n"
                      "  2. View items \n"
                      "  3. Edit item \n"
                      "  4. Delete item \n"
                      "  5. Exit \n";
-        int choice = mInt("Enter Choice");
+        int choice = mInt("Enter Choice: ");
 
         switch (choice) {
             case 1:
@@ -98,7 +98,7 @@ void Manager::menuManagement(Restaurant &restaurant) {
 
                 restaurant.getMenu().addItem(MenuItem(id, name, category, description, price, true));
                 restaurant.saveData();
-                std::cout << "Menu item added with ID: " << id << "\n";
+                std::cout << "Menu item with ID: " << id << " added\n";
             }
                 break;
             case 2:
@@ -147,7 +147,7 @@ void Manager::menuManagement(Restaurant &restaurant) {
 //Table management -- function
 void Manager::tableManagement(Restaurant& restaurant) {
     while (true) {
-        std::cout << " --- TABLE MANAGEMENT ---  " ;
+        std::cout << " --- TABLE MANAGEMENT ---  \n" ;
         std::cout << "  1. Add table \n"
                      "  2. View table \n"
                      "  3. Edit table \n"
@@ -155,7 +155,7 @@ void Manager::tableManagement(Restaurant& restaurant) {
                      "  5. Reserve table \n"
                      "  6. Clear reservation \n"
                      "  7. Exit \n";
-        int choice = mInt("Enter Choice");
+        int choice = mInt("Enter Choice: ");
         switch (choice) {
             case 1:
             {
@@ -231,7 +231,7 @@ void Manager::tableManagement(Restaurant& restaurant) {
             }
                 break;
             case 7:
-                break;
+                return;
             default:
                 std::cout << "Invalid Choice!\n";
                 break;
@@ -242,13 +242,13 @@ void Manager::tableManagement(Restaurant& restaurant) {
 //order management -- function
 void Manager::orderManagement(Restaurant &restaurant) {
     while (true) {
-        std::cout << " --- ORDER MANAGEMENT ---  " ;
+        std::cout << " --- ORDER MANAGEMENT ---  \n" ;
         std::cout << "  1. View all orders \n"
                      "  2. View today's order \n"
                      "  3. Edit order \n"
                      "  4. Delete order \n"
                      "  5. Exit \n";
-        int choice = mInt("Enter Choice");
+        int choice = mInt("Enter Choice: ");
         switch (choice) {
             case 1:
                 restaurant.displayAllOrders();
@@ -276,7 +276,7 @@ void Manager::orderManagement(Restaurant &restaurant) {
                     std::cout << "Order ID not found!\n";
                     continue;
                 }
-                std::cout << " --- EDIT ORDER ---  "
+                std::cout << " --- EDIT ORDER ---  \n"
                              "1. Change Table \n"
                              "2. Change Customer\n"
                              "3. Change Instruction\n"

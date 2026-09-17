@@ -18,7 +18,7 @@ bool Restaurant::saveData() const {
 bool Restaurant::loadData() {
     bool menuLoaded = csvManager.loadMenu(menu);
     bool tableLoaded = csvManager.loadTable(tables);
-    bool ordersLoaded = csvManager.loadOrders(orders, menu)
+    bool ordersLoaded = csvManager.loadOrders(orders, menu);
     return menuLoaded && tableLoaded && ordersLoaded;
 }
 
@@ -66,7 +66,7 @@ bool Restaurant::editTable(int number, const Table &replacement) {
         return false;
     }
     *table = replacement;  //replacement is used temporarily to store updated table details
-    std::cout << "Table edited successfully !\n";
+    std::cout << "Table updated successfully !\n";
     return true;
 }
 
@@ -184,6 +184,7 @@ void Restaurant::displayAllOrders(const std::string& date) const{
     for (auto& o : orders) {
         if (date.empty() || o.getDate() == date) {
             o.displayOrderInfo();
+            std::cout << " ------------------------------------------------------- \n" ;
         }
     }
 }
@@ -260,18 +261,17 @@ void Restaurant::generateSalesReport(const std::string& date) const {
 
     std::cout << "\n ==================================================== \n";
     std::cout << "        THE GARDEN SHED - DAILY SALES-REPORT \n";
-
     std::cout << " ====================================================== \n";
-    std::cout << "Date: " << date << "\n\n";
+    std::cout << "Date: " << date << "\n";
     std::cout << "TABLE OCCUPANCY\n";
     std::cout << "   Available : " << available << "\n";
     std::cout << "   Occupied  : " << occupied << "\n";
-    std::cout << "   Reserved  : " << reserved << "\n\n";
+    std::cout << "   Reserved  : " << reserved << "\n";
     std::cout << "ORDERED OPERATIONS\n";
     std::cout << "   Number of orders   : " << orderCount(date) << '\n';
     std::cout << "   Ordered item units : " << orderedItemUnits << "\n";
-    std::cout << "   Total Income       : " << totalIncome(date) << "\n\n";
-    std::cout << "   ITEM BREAKDOWN \n";
+    std::cout << "   Total Income       : " << totalIncome(date) << "\n";
+    std::cout << "ITEM BREAKDOWN \n";
     for (const auto& [name, count] : itemCounts) {
         std::cout << "   " << std::left << std::setw(30) << name << count << "\n";
     }

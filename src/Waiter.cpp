@@ -96,7 +96,7 @@ void Waiter::displayDashboard(Restaurant& restaurant) {
 
                     const MenuItem* item = restaurant.getMenu().findItem(itemId);
                     if (!item) {
-                        std::cout << "Invalid item \n";
+                        std::cout << "Menu item not found.\n";
                         continue;
                     }
 
@@ -112,17 +112,21 @@ void Waiter::displayDashboard(Restaurant& restaurant) {
                     }
 
                     order.addItem(OrderItem(item->getId(), item->getName(), item->getPrice(), quantity));
+                    // std::cout << "Item added !\n";
                 }
-                    std::cout << "Item added !\n";
-
                     if (order.getItems().empty()) {
                         std::cout << "Order cancelled. No item selected !\n";
-                    }else {
-                        restaurant.addOrder(order);
-                        restaurant.saveData();
-                        std::cout << "Order No: " << order.getOrderId() << " sent to kitchen.\n"
-                        << " Total: $" << order.getTotalOrderPrice() << std::endl;
+                        return;
                     }
+
+                if (restaurant.addOrder(order)) {
+                    table->occupyTable();
+                    restaurant.saveData();
+                    std::cout << "Order #" << order.getOrderId() << " sent to kitchen.\n"
+                    << " Total: $" << order.getTotalOrderPrice() << std::endl;
+                }else {
+                    std::cout << "Failed to add order !";
+                }
             }
             break;
 

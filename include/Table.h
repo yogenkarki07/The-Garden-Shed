@@ -33,6 +33,8 @@ class Table {
     void reserveTable(const std::string& name, const std::string& dataTime );
     void clearTableReservation();
 
-    bool canSeat(int guest) const;
+    bool freeTable(int guest);
+    bool occupyTable();
+
     std::string stringStatus() const;
 };
