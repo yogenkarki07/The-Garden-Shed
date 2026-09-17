@@ -112,7 +112,8 @@ void Waiter::displayDashboard(Restaurant& restaurant) {
                     }
 
                     order.addItem(OrderItem(item->getId(), item->getName(), item->getPrice(), quantity));
-                    // std::cout << "Item added !\n";
+                    std::cout << "Item added in order list. \n";
+
                 }
                     if (order.getItems().empty()) {
                         std::cout << "Order cancelled. No item selected !\n";

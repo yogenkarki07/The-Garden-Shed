@@ -109,7 +109,7 @@ void Order::addItem(const OrderItem& item) {
         }
     }
     items.push_back(item);
-    std::cout << "Item added in order list. \n";
+    // std::cout << "Item added in order list. \n";
 }
 
 bool Order::removeItem(int menuItemId) {
