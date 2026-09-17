@@ -120,8 +120,9 @@ void Waiter::displayDashboard(Restaurant& restaurant) {
                     }
 
                 if (restaurant.addOrder(order)) {
-                    table->occupyTable();
-                    restaurant.saveData();
+                    if (table->occupyTable()) {
+                        restaurant.saveData();
+                    }
                     std::cout << "Order #" << order.getOrderId() << " sent to kitchen.\n"
                     << " Total: $" << order.getTotalOrderPrice() << std::endl;
                 }else {

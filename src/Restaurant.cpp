@@ -158,7 +158,7 @@ bool Restaurant::deleteOrder(int id) {
 //Table reservations
 void Restaurant::markTableAsOccupied(int tableNumber) {
     if (auto* t = findTable(tableNumber)) {
-        t->setStatus(tableStatus::occupied);
+        t->occupyTable();
     }
 }
 
@@ -174,7 +174,7 @@ void Restaurant::markTableAsAvailable(int tableNumber) {
                 }
         }
         if (!stillActive) {
-            t->setStatus(tableStatus::available);
+            t->freeTable();
         }
     }
 }
@@ -193,7 +193,7 @@ void Restaurant::displayAllOrders(const std::string& date) const{
 void Restaurant::displayKitchenQueue() const{
     std::cout << " ====================== Kitchen Queue =================== \n" ;
     for (const auto& o : orders) {
-        if (o.getStatus() != orderStatus::served || o.getStatus() != orderStatus::cancelled) {
+        if (o.getStatus() != orderStatus::served && o.getStatus() != orderStatus::cancelled) {
             o.displayOrderInfo();
         }
     }

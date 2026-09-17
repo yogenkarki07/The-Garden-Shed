@@ -57,7 +57,7 @@ bool Menu::deleteItem(int id) {
             return item.getId() == id;                // temporary function to check item through id.
         });
 
-    if (it != items.end()) {
+    if (it == items.end()) {
         std::cout << "Item not found ! \n";
         return false;
     }

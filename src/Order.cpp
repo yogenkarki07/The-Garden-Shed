@@ -130,11 +130,16 @@ bool Order::updateItemQuantity(int menuItemId, int quantity) {
             if (quantity == 0) {
                 return removeItem(menuItemId);
             }
+            if (quantity < 0) {
+                return false;
+            }
             i.setItemQuantity(quantity);
             std::cout << "Item updated in order list. \n";
             return true;
         }
     }
+    std::cout << "Item not found \n";
+    return false;
 }
 
 //getTotalOrderPrice - Function to read data(total ordered price)
