@@ -251,9 +251,9 @@ void Restaurant::generateSalesReport(const std::string& date) const {
 
     for (const auto& o : orders) {
         std::string orderDate = o.getOrderDateTime().substr(0, 10);
-        if (orderDate != date || o.getStatus() == orderStatus::served) continue;
+        if (orderDate != date || o.getStatus() != orderStatus::served) continue;
 
-        for (const auto&item : o.getItems()) {
+        for (const auto& item : o.getItems()) {
             itemCounts[item.getItemName()] += item.getItemQuantity();
             orderedItemUnits += item.getItemQuantity();
         }
