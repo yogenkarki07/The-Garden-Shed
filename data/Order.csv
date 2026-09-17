@@ -4,3 +4,6 @@ order_id, table_number, customer_name, special_instruction, status, order_dateTi
 3,3,pepe,,served,2026-09-17 16:28:46,152.10
 4,1,sita,,served,2026-09-17 16:38:19,55.40
 5,4,nelson,,served,2026-09-17 16:43:04,280.80
+6,4,sushi,,served,2026-09-18 00:59:26,281.30
+7,1,puja,,served,2026-09-18 01:06:34,116.10
+8,9,hegu,,served,2026-09-18 01:09:35,183.80

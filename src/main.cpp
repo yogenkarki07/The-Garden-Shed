@@ -43,7 +43,9 @@ int main() {
             "Refreshing iced tea with lychee.", 6.50));
     }
 
-    restaurant.saveData();
+    if (!restaurant.saveData()) {
+        std::cout << "Warning: Failed to save restaurant data..\n";
+    };
 
     Manager manager(1, "Manager");
     Waiter waiter (2, "Front of House");

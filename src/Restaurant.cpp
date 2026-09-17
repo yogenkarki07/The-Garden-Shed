@@ -223,7 +223,7 @@ int Restaurant::orderCount(const std::string& date) const {
 std::pair<std::string, int> Restaurant::mostOrderedItem(const std::string& date) const {
     std::map<std::string, int> counts;
     for (auto& o : orders) {
-        if (o.getDate() != date || o.getStatus() == orderStatus::cancelled) continue;
+        if (o.getDate() != date || o.getStatus() != orderStatus::served) continue;
         for (const auto& item : o.getItems()) {
             counts[item.getItemName()] += item.getItemQuantity();
         }
