@@ -1,7 +1,7 @@
 #pragma once
 #include<string>
 
-enum tableStatus {
+enum class tableStatus {
     available,
     occupied,
     reserved,

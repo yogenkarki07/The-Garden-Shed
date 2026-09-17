@@ -184,7 +184,7 @@ bool CSVmanager::saveOrders( const std::vector<Order> &orders) const {
                   << escapeCSV(order.getSpecialInstruction()) << ","
                   << order.statusString() << ","
                   << order.getOrderDateTime() << ","
-                  << std::fixed << std::setprecision(2) << order.getTotalOrderPrice() << ","
+                  << std::fixed << std::setprecision(2) << order.getTotalOrderPrice()
                   << std::endl;
 
         for (const auto& item : order.getItems()) {
@@ -192,7 +192,7 @@ bool CSVmanager::saveOrders( const std::vector<Order> &orders) const {
                      << item.getMenuItemId() << ","
                      << escapeCSV(item.getItemName()) << ","
                      <<std::fixed << std::setprecision(2) << item.getItemPrice() << ","
-                     << item.getItemQuantity() << ","
+                     << item.getItemQuantity()
                      << std::endl;
         }
     }

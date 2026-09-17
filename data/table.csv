@@ -1,11 +1,11 @@
-table_number,capacity,status,reservation_name,reservation_datetime
+table_number, capacity, status, reservation_name, reservation_datetime 
 1,2,available,,
 2,4,available,,
 3,4,available,,
 4,6,available,,
 5,2,available,,
 6,2,available,,
-7,8,available,,
+7,8,reserved,yoge,
 8,2,available,,
 9,4,available,,
 10,2,available,,

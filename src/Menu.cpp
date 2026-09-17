@@ -83,7 +83,7 @@ void Menu::displayMenu() const{
     std::cout << std::left << std::setw(5) << "ID"
     << std::setw(24) << "Name" << std::setw(16) << "Category"
     << std::setw(10) << "Price" << "Status" << std::endl;
-    std::cout << "\n------------------------------------------------------\n";
+    std::cout << "------------------------------------------------------\n";
     for (const auto& item : items) {
         std::cout << std::left << std::setw(5) << item.getId()
                   << std::setw(24) << item.getName().substr(0, 23)
@@ -92,5 +92,5 @@ void Menu::displayMenu() const{
                   << item.getPrice() << "  " << (item.isAvailable() ? "Available" : "Unavailable")
                   << std::endl;
     }
-    std::cout << "\n======================================================\n";
+    std::cout << "\n======================================================\n\n";
 }

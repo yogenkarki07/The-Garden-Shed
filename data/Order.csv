@@ -1,0 +1,6 @@
+order_id, table_number, customer_name, special_instruction, status, order_dateTime, total
+1,2,sushi,,served,2026-09-17 16:03:47,112.30
+2,1,lama,,served,2026-09-17 16:08:27,52.80
+3,3,pepe,,served,2026-09-17 16:28:46,152.10
+4,1,sita,,served,2026-09-17 16:38:19,55.40
+5,4,nelson,,served,2026-09-17 16:43:04,280.80

@@ -1,0 +1,19 @@
+order_id, item_id, item_name, item_price, item_quantity
+1,2,Miso Ramen,19.90,2
+1,1,Teriyaki Chicken,22.50,1
+1,3,Korean Fried Chicken,24.00,1
+1,5,Lychee Iced Tea,6.50,4
+2,2,Miso Ramen,19.90,2
+2,5,Lychee Iced Tea,6.50,2
+3,2,Miso Ramen,19.90,4
+3,5,Lychee Iced Tea,6.50,4
+3,3,Korean Fried Chicken,24.00,1
+3,1,Teriyaki Chicken,22.50,1
+4,2,Miso Ramen,19.90,1
+4,1,Teriyaki Chicken,22.50,1
+4,5,Lychee Iced Tea,6.50,2
+5,3,Korean Fried Chicken,24.00,3
+5,1,Teriyaki Chicken,22.50,3
+5,2,Miso Ramen,19.90,2
+5,4,Vegetable Gyoza,12.50,5
+5,5,Lychee Iced Tea,6.50,6

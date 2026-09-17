@@ -250,7 +250,8 @@ void Restaurant::generateSalesReport(const std::string& date) const {
     int orderedItemUnits = 0;
 
     for (const auto& o : orders) {
-        if (o.getDate() != date || o.getStatus() == orderStatus::cancelled) continue;
+        std::string orderDate = o.getOrderDateTime().substr(0, 10);
+        if (orderDate != date || o.getStatus() == orderStatus::served) continue;
 
         for (const auto&item : o.getItems()) {
             itemCounts[item.getItemName()] += item.getItemQuantity();
@@ -271,6 +272,7 @@ void Restaurant::generateSalesReport(const std::string& date) const {
     std::cout << "   Number of orders   : " << orderCount(date) << '\n';
     std::cout << "   Ordered item units : " << orderedItemUnits << "\n";
     std::cout << "   Total Income       : " << totalIncome(date) << "\n";
+    std::cout << "   Most ordered item  : " << top.first << " (" << top.second << " units)\n";
     std::cout << "ITEM BREAKDOWN \n";
     for (const auto& [name, count] : itemCounts) {
         std::cout << "   " << std::left << std::setw(30) << name << count << "\n";
