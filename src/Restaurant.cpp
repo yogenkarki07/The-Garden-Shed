@@ -54,7 +54,7 @@ bool Restaurant::addTable(const Table &table){
         return false;
     }
     tables.push_back(table);
-    std::cout << "Table added successfully !\n";
+    // std::cout << "Table added successfully !\n";
     return true;
 }
 
@@ -66,7 +66,7 @@ bool Restaurant::editTable(int number, const Table &replacement) {
         return false;
     }
     *table = replacement;  //replacement is used temporarily to store updated table details
-    std::cout << "Table updated successfully !\n";
+    // std::cout << "Table updated successfully !\n";
     return true;
 }
 
@@ -75,7 +75,7 @@ bool Restaurant::deleteTable(int number) {
     for (auto table = tables.begin(); table != tables.end(); ++table) {
         if (table->getTableNumber() == number) {
             tables.erase(table);
-            std::cout << "Table removed successfully ! !\n";
+            // std::cout << "Table removed successfully ! !\n";
             return true;
         }
     }

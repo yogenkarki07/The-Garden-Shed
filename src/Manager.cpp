@@ -29,6 +29,13 @@ static double mDouble(std::string prompt) {
 
 static std::string mLine(std::string prompt) {
     std::cout << prompt;
+    std::string value;
+    std::getline(std::cin >> std::ws, value);
+    return value;
+}
+
+static std::string mDateLine(std::string prompt) {
+    std::cout << prompt;
     std::cin.ignore(1000, '\n');
     std::string value;
     std::getline(std::cin, value);
@@ -94,11 +101,11 @@ void Manager::menuManagement(Restaurant &restaurant) {
                 std::string name = mLine("Name: ");
                 std::string category = mLine("Category: ");
                 std::string description = mLine("Description: ");
-                double price = mDouble("Price");
+                double price = mDouble("Price: ");
 
                 restaurant.getMenu().addItem(MenuItem(id, name, category, description, price, true));
                 restaurant.saveData();
-                std::cout << "Menu item with ID: " << id << " added\n";
+                std::cout << "Menu item with ID: " << id << " added !\n";
             }
                 break;
             case 2:
@@ -121,7 +128,7 @@ void Manager::menuManagement(Restaurant &restaurant) {
 
                 restaurant.getMenu().editItem(id, MenuItem(id, name, category, description, price, available == 1));
                 restaurant.saveData();
-                std::cout << "Menu item with ID: " << id << " updated.\n";
+                std::cout << "Menu item with ID: " << id << " updated!\n";
             }
                 break;
             case 4:
@@ -163,7 +170,7 @@ void Manager::tableManagement(Restaurant& restaurant) {
                 int capacity = mInt("Capacity: ");
                 if (restaurant.addTable(Table(number, capacity))) {
                     restaurant.saveData();
-                    std::cout << "New Table with number #" << number <<  "Added\n";
+                    std::cout << "New Table with number #" << number <<  " added\n";
                 }else {
                     std::cout << "Table number already exists!\n";
                 }
@@ -188,17 +195,17 @@ void Manager::tableManagement(Restaurant& restaurant) {
                 }
                 restaurant.editTable(number, replacement);
                 restaurant.saveData();
-                std::cout << "Table number # " << number<< "updated ! \n";
+                std::cout << "Table number #"<< number<< " updated ! \n";
             }
                 break;
             case 4:
             {
                 int number = mInt("Table number: ");
-                if (!restaurant.deleteTable(number)) {
+                if (restaurant.deleteTable(number)) {
                     restaurant.saveData();
-                    std::cout << "Table number #" << number << "deleted! \n";
+                    std::cout << "Table number #" << number << " deleted! \n";
                 }else {
-                    std::cout << "Table number not found!\n";
+                    std::cout << "Table does not exist!\n";
                 }
             }
                 break;
@@ -226,7 +233,7 @@ void Manager::tableManagement(Restaurant& restaurant) {
                     restaurant.saveData();
                     std::cout << "Reservation cleared !!" << std::endl;
                 }else {
-                    std::cout << "Table not found!\n";
+                    std::cout << "Reservation not found!\n";
                 }
             }
                 break;
@@ -356,7 +363,7 @@ void Manager::orderManagement(Restaurant &restaurant) {
 
 //dailySalesReport
 void Manager::dailySalesReport(Restaurant &restaurant) {
-    std::string date = mLine("Report date (YYYY-MM-DD, blank = today): ");
+    std::string date = mDateLine("Report date (YYYY-MM-DD, blank = today): ");
     if (date.empty()) date = [] {
             auto now = std::time(nullptr);
             std::tm tm{};
