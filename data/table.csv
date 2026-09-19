@@ -1,5 +1,5 @@
 table_number, capacity, status, reservation_name, reservation_datetime 
-1,2,available,,
+1,2,occupied,,
 2,4,available,,
 3,4,available,,
 4,6,available,,
@@ -13,3 +13,4 @@ table_number, capacity, status, reservation_name, reservation_datetime
 12,6,available,,
 13,4,available,,
 14,2,occupied,,
+15,4,available,,

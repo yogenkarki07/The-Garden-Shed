@@ -2,6 +2,7 @@
 #include <string>
 
 class OrderItem {
+    private:
     int menuItemId;
     std::string itemName;
     double itemPrice;

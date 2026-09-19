@@ -287,7 +287,8 @@ void Manager::orderManagement(Restaurant &restaurant) {
                              "1. Change Table \n"
                              "2. Change Customer\n"
                              "3. Change Instruction\n"
-                             "4. Change Status\n" ;
+                             "4. Change Status\n"
+                             "5. Exit\n" ;
                 int option = mInt("Choice: ");
                 switch (option) {
                     case 1: {

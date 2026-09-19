@@ -33,3 +33,8 @@ order_id, item_id, item_name, item_price, item_quantity
 9,4,Vegetable Gyoza,12.50,1
 9,6,MoMo,14.99,2
 9,5,Lychee Iced Tea,6.50,2
+10,6,MoMo,14.99,3
+10,5,Lychee Iced Tea,6.50,2
+10,2,Miso Ramen,19.90,1
+10,1,Teriyaki Chicken,22.50,2
+10,4,Vegetable Gyoza,12.50,3
